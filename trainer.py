@@ -13,8 +13,13 @@ def extract_features(document):
 
 csv_file = 'trainingData.csv'
 max_tweets_per_sentiment = 1000
-processed_tweets = get_processed_tweets(csv_file,max_tweets_per_sentiment)
+processed_tweets = get_processed_tweets(csv_file, max_tweets_per_sentiment)
 all_word_features = get_word_features_from_tweets(processed_tweets)
+
+all_word_features_dump = open('all_word_features.dump', 'wb')
+pickle.dump(all_word_features, all_word_features_dump)
+all_word_features_dump.close()
+
 training_set = nltk.classify.apply_features(extract_features, processed_tweets)
 classifier = nltk.NaiveBayesClassifier.train(training_set)
 classifier_dump = open('classifier.dump', 'wb')
