@@ -9,7 +9,7 @@ def get_words_in_tweet(tweet):
 def get_words_in_tweets(tweets):
     all_words = []
     for tweet in tweets:
-        get_words_in_tweet(tweet)
+        all_words.extend(get_words_in_tweet(tweet))
     return all_words
 
 
