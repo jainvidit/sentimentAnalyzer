@@ -14,22 +14,17 @@ def get_sentiment(key):
     return sentiment
 
 
-def get_csv_contents(csv_file_name):
-    csv_contents = csv.reader(csv_file_name, delimiter=',', quotechar='"')
-    return csv_contents
-
-
-def get_processed_tweets(csv_file_name,max_tweets_per_sentiment):
+def get_processed_tweets(csv_file_name, max_tweets_per_sentiment):
     processed_tweets = []
-    raw_tweet_data = get_csv_contents(csv_file_name)
-    count = {'0': 0, '2': 0, '4': 0}
-    max_tweets_per_sentiment = 100
-    print "Tweets  = ", max_tweets_per_sentiment
-    for tweet in raw_tweet_data:
-        count[tweet[0]] += 1
-        if count[tweet[0]] <= max_tweets_per_sentiment:
-            words = remove_noise(tweet[5])
-            processed_tweets.append((words, get_sentiment(tweet[0])))
+    with open(csv_file_name, 'rb') as csv_file:
+        raw_tweet_data = csv.reader(csv_file, delimiter=',', quotechar='"')
+        count = {'0': 0, '2': 0, '4': 0}
+        print "Tweets  = ", max_tweets_per_sentiment
+        for tweet in raw_tweet_data:
+            count[tweet[0]] += 1
+            if count[tweet[0]] <= max_tweets_per_sentiment:
+                words = remove_noise(tweet[5])
+                processed_tweets.append((words, get_sentiment(tweet[0])))
     return processed_tweets
 
 

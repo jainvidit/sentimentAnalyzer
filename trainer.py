@@ -11,7 +11,7 @@ def extract_features(document):
         features['contains(%s)' % word] = (word in document_words)
     return features
 
-csv_file = 'training.1600000.processed.noemoticon.csv'
+csv_file = 'trainingData.csv'
 max_tweets_per_sentiment = 1000
 processed_tweets = get_processed_tweets(csv_file,max_tweets_per_sentiment)
 all_word_features = get_word_features_from_tweets(processed_tweets)
