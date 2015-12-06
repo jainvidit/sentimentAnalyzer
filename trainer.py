@@ -111,21 +111,6 @@ def find_best_words(word_scores, number):
 def best_word_features(words):
 	return dict([(word, True) for word in words if word in best_words])
 
-csv_file = 'trainingData.csv'
-max_tweets_per_sentiment = 1000
-processed_tweets = get_processed_tweets(csv_file, max_tweets_per_sentiment)
-all_word_features = get_word_features_from_tweets(processed_tweets)
-
-all_word_features_dump = open('all_word_features.dump', 'wb')
-pickle.dump(all_word_features, all_word_features_dump)
-all_word_features_dump.close()
-
-training_set = nltk.classify.apply_features(extract_features, processed_tweets)
-classifier = nltk.NaiveBayesClassifier.train(training_set)
-classifier_dump = open('classifier.dump', 'wb')
-pickle.dump(classifier, classifier_dump)
-classifier_dump.close()
-
 start = time.time()
 csv_file = 'trainingData.csv'
 max_tweets_per_sentiment = 80000
